@@ -22,7 +22,7 @@
 	<h2>Home Page</h2>
 </div>
 <div class="content">
-  	<!-- notification message -->
+  	<!-- notification message2 -->
   	<?php if (isset($_SESSION['success'])) : ?>
       <div class="error success" >
       	<h3>
