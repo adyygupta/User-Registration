@@ -14,7 +14,7 @@
 <button class="btn_search" name="search_user" type="submit" onclick="">SEARCH</button>
 
 <?php
-
+//Adding a comment
 $query1 = "SELECT username, firstname, lastname, email FROM users WHERE username LIKE '" +$u_name+ "%'";
 $result1 = mysql_fetch_array($query1);
 $i=1;
