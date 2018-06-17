@@ -19,24 +19,25 @@ if($username){
 
     // check password
 
-    if($oldpassword==$oldpassworddb){
+    if($oldpassword==$oldpassworddb) {
       // now check new password
-      if($newpassword==$confirmpassword){
+      if($newpassword==$confirmpassword) {
         // success
         // now change password in db
         $query1 = "UPDATE users SET password='$newpassword' WHERE username='$username'";
         $result1=mysqli_query($db, $query1);
         session_destroy();
         echo "Your password has been changed.<a href='login.php'>Return</a>to the Login page.";
-
-      }else {
+        mysqli_close($db);
+      } else {
+        mysqli_close($db);
         die("New passwords do not match");
       }
-    }else {
+    } else {
+      mysqli_close($db);
       die("old password doesn't match");
     }
-
-  }else{
+  } else {
   echo"
   <form action='changepassword.php' method='POST'>
     Old password: <input type='password' name='oldpassword'><p>
