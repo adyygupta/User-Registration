@@ -166,24 +166,4 @@ function search($query1) {
   //echo $finalResult;
   return $searchResult;
 }
-
-/*if (isset($_POST['search_user'])) {
-  // receive all input values from the form
-  $username = mysqli_real_escape_string($db, $_POST['u_name']);
-  $firstname = mysqli_real_escape_string($db, $_POST['f_name']);
-  $lastname = mysqli_real_escape_string($db, $_POST['l_name']);
-  $email = mysqli_real_escape_string($db, $_POST['email']);
-  // form validation: ensure that the form is correctly filled ...
-  // by adding (array_push()) corresponding error into $errors array
-  $query1 = "SELECT username, firstname, lastname, email FROM users;
-  $count = 0;
-  if (!empty($username)) {
-    $query1 = $query1 + " WHERE username LIKE " +$username+ "%";
-  }
-  $result = mysqli_query($db, $query1);
-  $rows = mysqli_fetch_assoc($result);
-  header('location: search.php');
-  }
-}*/
-
 ?>

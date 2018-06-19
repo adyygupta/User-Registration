@@ -16,24 +16,50 @@
 <?php
 //Adding a comment
 $query1 = "SELECT username, firstname, lastname, email FROM users";
-
-if($_POST['search_user']){
-  if(!empty('u_name')){
-  $query2 = $query1 . "$username" . 'WHERE username LIKE '%'';
-  $result1 = mysql_fetch_array($query2);
+// receive all input values from the form
+if(isset($_POST['search_user'])){
+  $username = mysqli_real_escape_string($db, $_POST['u_name']);
+  $firstname = mysqli_real_escape_string($db, $_POST['f_name']);
+  $lastname = mysqli_real_escape_string($db, $_POST['l_name']);
+  $email = mysqli_real_escape_string($db, $_POST['email']);
+  $count = 0;
+  if(!empty($username)){
+  $query1 = $query1 . " WHERE username LIKE '%" .$username. "%'";
+  //$query2 = $query1 . "$username" . 'WHERE username LIKE '%'';
+  //$result1 = mysql_fetch_array($query2);
+  $count++;
 }
-if(!empty('f_name')){
-  $query2 = $query1 . "$firstname" . 'WHERE firstname LIKE '%'' ;
-  $result1 = mysql_fetch_array($query2);
+if(!empty($firstname)){
+  if ($count == 0) {
+    $query1 = $query1 . " WHERE firstname LIKE '%" .$firstname. "%'";
+  } else {
+    $query1 = $query1 . " AND firstname LIKE '%" .$firstname. "%'";
+  }//$query2 = $query1 . "$firstname" . 'WHERE firstname LIKE '%'' ;
+  //$result1 = mysql_fetch_array($query2);
+  $count++;
 }
-if(!empty('l_name')){
-  $query2 = $query1 . "$lastname" . 'WHERE lastname LIKE '%'';
-  $result1 = mysql_fetch_array($query2);
+if(!empty($lastname)){
+  if($count == 0) {
+    $query1 = $query1 . " WHERE lastname LIKE '%" .$lastname. "%'";
+  } else {
+    $query1 = $query1 . " AND lastname LIKE '%" .$lastname. "%'";
+  }
+  //$query2 = $query1 . "$lastname" . 'WHERE lastname LIKE '%'';
+  //$result1 = mysql_fetch_array($query2);
+  $count++;
 }
-if(!empty('email')){
-  $query2 = $query1 . "$email" . 'WHERE email LIKE '%'';
-  $result1 = mysql_fetch_array($query2);
+if(!empty($email)){
+  if($count == 0) {
+    $query1 = $query1 . " WHERE email LIKE '%" .$email. "%'";
+  } else {
+    $query1 = $query1 . " AND email LIKE '%" .$email. "%'";
+  }
+  //$query2 = $query1 . "$email" . 'WHERE email LIKE '%'';
+  //$result1 = mysql_fetch_array($query2);
+  $count++;
 }
+}
+$result1 = mysql_fetch_array($query1);
   echo $i=1;
   foreach($result1 as $rows) {?>
     <tr>
@@ -43,8 +69,6 @@ if(!empty('email')){
       <td bgcolor="#FFFFFF"><? echo $rows['lastname']; ?></td>
       <td bgcolor="#FFFFFF"><? echo $rows['email']; ?></td>
     </tr>
-  }
-
 <?} ?>
 </table>
 </form>
