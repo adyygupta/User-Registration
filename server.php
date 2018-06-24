@@ -106,12 +106,28 @@ if (isset($_POST['login_user'])) {
   	if (mysqli_num_rows($results) == 1) {
   	  $_SESSION['username'] = $username;
   	  $_SESSION['success'] = "You are now logged in";
+      $msg = $username ." logged in.";
+      echo $msg;
+      writeLogFile($msg);
   	  header('location: index.php');
 
 }
     else {
   		array_push($errors, "Wrong username/password combination");
   	}
+  }
+}
+
+function writeLogFile($msg) {
+  $file = fopen("logs.txt", "r+");
+  if ($file) {
+    while (!feof($file)) {
+      fgets($file);
+    }
+    // append date/time to message
+    $str = "[" . date("Y/m/d h:i:s", mktime()) . "] " . $msg;
+    echo fwrite($file, $str . "\r\n");
+    fclose($file);
   }
 }
 
